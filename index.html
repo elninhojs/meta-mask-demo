@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Meta Mask example</title>
+
+    <style>
+        .content{
+            background-color: violet;
+            text-align: center;
+            padding: 30px;
+            border-radius: 5pt 5pt 5pt 5pt;
+        }
+
+        body {
+            background-color: #010101;
+            color: #f0ece2;
+        }
+        
+        .box{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button{
+            border: 2px solid transparent;
+            padding: 5px;
+            cursor: pointer;
+            color: brown;
+            font-weight: bold;
+            background-color: blanchedalmond;
+            border-radius: 5pt 5pt 5pt 5pt;
+        }
+
+        #div-msg{
+            padding: 10px;
+        }
+    </style>
+
+
+    <script>
+        window.addEventListener('load', ()=>{
+            document.querySelector('button').addEventListener('click', async () => {
+                if(!window.ethereum) {
+                    document.querySelector('#div-msg').innerText = 'You do not have Meta Mask wallet installed'
+                    setTimeout(()=>document.querySelector('#div-msg').innerText = 'You are not connected', 3000 )
+                }else{
+                    const resp = await window.ethereum.send('eth_requestAccounts');
+                    document.querySelector('#div-msg').innerHTML = `The response was: ${JSON.stringify(resp)}`
+                }
+            })
+        })
+
+
+
+
+    </script>
+  </head>
+  <body>
+    <div class="box">
+        <div class="content">
+            <button>Connect</button>
+            <div id="div-msg">You are not connected</div>
+        </div> 
+    </div>
+
+  </body>
+</html>
